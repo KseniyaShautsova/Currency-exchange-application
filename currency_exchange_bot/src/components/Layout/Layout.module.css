@@ -1,0 +1,41 @@
+.root{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    height: 20vh;
+    width: 100vw;
+    color: #003554;
+    font-weight: 500;
+}
+
+.buttons{
+    margin: 2% 0;
+    width: 100vw;
+    text-align: center;
+}
+
+.button{
+    margin: 0 2%;
+    padding: 0.5% 1%;
+    width: calc(4rem + 4%);
+    color: black;
+    background-color: #fff;
+    font-weight: 00;
+    border: 1px solid #003554 ;
+    border-radius: 3px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.body{
+    color: #fff;
+    text-align: center;
+}
