@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("")
@@ -64,22 +65,31 @@ public class TestC {
     }
 
     @GetMapping("/getCsv")
-    public List<List<String>> getCsv()
+    public ResponseEntity<ReportResponse> getCsv()
     {
-        Resource r = new ClassPathResource("GPW.WA.csv");
-        List<List<String>> records = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(r.getFile()))) {
+        final int HEADERS_INDEX = 0;
+        Resource resource = new ClassPathResource("GPW.WA.csv");
+        List<StockResponse> stocks = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(resource.getFile()))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                records.add(Arrays.asList(values));
+                stocks.add(new StockResponse(values[0], values[1], values[2], values[3], values[4]));
             }
+            stocks.remove(HEADERS_INDEX);
+            ReportResponse reportResponse = ReportResponse.builder()
+                    .regularMarketPrice("0")
+                    .regularMarketTime("0")
+                    .stocks(stocks)
+                    .build();
+
+            return ResponseEntity.ok(reportResponse);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return records;
+        return ResponseEntity.ok(ReportResponse.builder().build());
     }
  }
