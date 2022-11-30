@@ -1,13 +1,13 @@
 import React from "react";
 import s from "./CurrencyBlock.module.css";
-import ChartElement from "../../../ChartElement/ChartElement.component";
+import ChartElement from "./components/ChartElement/ChartElement.component";
 
 
 export default function CurrencyBlock(props) {
 
 
     const [isActive, setActive] = React.useState(false);
-
+ 
     function Active(){
        setActive(isActive=>!isActive)
     }
@@ -15,7 +15,7 @@ export default function CurrencyBlock(props) {
     return (
 
 
-        <div className={s.container}>
+        <div className={s.root}>
             <p>{props.title}</p>
             <div className={s.buttons}>
                 <div className={s.buttonsBuySell}>
