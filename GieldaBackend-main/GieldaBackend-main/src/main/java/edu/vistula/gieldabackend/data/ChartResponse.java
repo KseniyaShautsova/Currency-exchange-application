@@ -6,7 +6,7 @@ import java.util.List;
 
 @Value
 @Builder
-public class ReportResponse {
+public class ChartResponse {
 
     Float regularMarketPrice;
     Long regularMarketTime;

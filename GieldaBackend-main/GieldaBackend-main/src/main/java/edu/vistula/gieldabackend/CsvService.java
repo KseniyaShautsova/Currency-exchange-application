@@ -1,6 +1,6 @@
 package edu.vistula.gieldabackend;
 
-import edu.vistula.gieldabackend.data.ReportResponse;
+import edu.vistula.gieldabackend.data.ChartResponse;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class CsvService {
     private static final int LOW_HEADER = 3;
     private static final int CLOSE_HEADER = 4;
 
-    public ReportResponse getDataFromCsv(String code) throws IOException {
+    public ChartResponse getDataFromCsv(String code) throws IOException {
         Resource resource = new ClassPathResource(code + ".csv");
         try (BufferedReader br = new BufferedReader(new FileReader(resource.getFile()))) {
             List<Long> timestampList = new ArrayList<>();
@@ -44,7 +43,7 @@ public class CsvService {
                 addPriceToList(lowList, fields[LOW_HEADER]);
                 addPriceToList(closeList, fields[CLOSE_HEADER]);
             }
-            return ReportResponse.builder()
+            return ChartResponse.builder()
                     .regularMarketPrice(closeList.get(closeList.size() - 1))
                     .regularMarketTime(timestampList.get(timestampList.size() - 1))
                     .timestamp(timestampList)
@@ -62,7 +61,7 @@ public class CsvService {
     }
 
     private void addDateToTimestampList(List<Long> timestampList, LocalDate date) {
-        Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Instant instant = Instant.from(date);
         Long timestamp = instant.toEpochMilli();
         timestampList.add(timestamp);
     }

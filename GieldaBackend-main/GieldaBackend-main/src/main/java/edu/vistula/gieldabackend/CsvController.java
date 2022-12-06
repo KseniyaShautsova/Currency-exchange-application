@@ -16,8 +16,8 @@ public class CsvController {
     private final CsvService csvService;
 
     @GetMapping("/{code}")
-    public ResponseEntity<ReportResponse> getDataFromCsv(@PathVariable String code) throws IOException {
-        ReportResponse reportResponse = csvService.getDataFromCsv(code);
-        return ResponseEntity.ok(reportResponse);
+    public ResponseEntity<ChartResponse> getDataFromCsv(@PathVariable String code) throws IOException {
+        ChartResponse chartResponse = csvService.getDataFromCsv(code);
+        return ResponseEntity.ok(chartResponse);
     }
  }
