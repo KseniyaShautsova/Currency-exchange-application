@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class CsvService {
     }
 
     private void addDateToTimestampList(List<Long> timestampList, LocalDate date) {
-        Instant instant = Instant.from(date);
+        Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
         Long timestamp = instant.toEpochMilli();
         timestampList.add(timestamp);
     }
