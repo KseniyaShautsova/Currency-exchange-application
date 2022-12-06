@@ -37,8 +37,7 @@ public class CsvService {
                 String[] fields = line.split(",");
                 String dateString = fields[DATE_HEADER];
                 if(!DateValidator.isValid(dateString)) continue;
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate date = LocalDate.parse(dateString, formatter);
+                LocalDate date = createDateFromString(dateString);
                 addDateToTimestampList(timestampList, date);
                 addPriceToList(openList, fields[OPEN_HEADER]);
                 addPriceToList(highList, fields[HIGH_HEADER]);
@@ -55,6 +54,11 @@ public class CsvService {
                     .high(highList)
                     .build();
         }
+    }
+
+    private LocalDate createDateFromString(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            return LocalDate.parse(dateString, formatter);
     }
 
     private void addDateToTimestampList(List<Long> timestampList, LocalDate date) {
