@@ -1,9 +1,13 @@
 import React from "react";
+import s from "./ChartBlock.module.css";
 import { useEffect, useState, useMemo } from "react";
 import Chart from 'react-apexcharts';
-import s from "./ChartElement.module.css"
 
-export default function ChartElement() {
+
+export default function ChartBlock(props) {
+
+
+    const [isActive, setActive] = React.useState(false);
 
     const [series, setSeries] = useState([{
         data: []
@@ -12,8 +16,9 @@ export default function ChartElement() {
     const [prevPrice, setPrevPrice] = useState(0)
     const [priceTime, setPriceTime] = useState(null)
 
-    const proxyUrl = "https://cors-anywhere.herokuapp.com/"
-    const stocksUrl = `${proxyUrl}https://query1.finance.yahoo.com/v8/finance/chart/GME`;
+    const stocksUrl = `http://localhost:8080/csv/${props.url}`;
+
+
 
     const chart = {
         options: {
@@ -48,6 +53,7 @@ export default function ChartElement() {
     }
 
 
+
     //gme - Game Stop Crop
     useEffect(() => {
 
@@ -56,18 +62,18 @@ export default function ChartElement() {
         async function getLatestPrice() {
 
             try {
+
+
                 const data = await getStocks();
-                const gme = data.chart.result[0];
                 setPrevPrice(price);
-                setPrice(gme.meta.regularMarketPrice.toFixed(2));
-                setPriceTime(new Date(gme.meta.regularMarketTime * 1000));
-                const quote = gme.indicators.quote[0]
-                const prices = gme.timestamp.map((timestamp, index) => {
+                setPrice(data.regularMarketPrice.toFixed(2));
+                setPriceTime(new Date(data.regularMarketTime * 1000));
+                const prices = data.timestamp.map((timestamp, index) => {
 
                     return {
                         x: new Date(timestamp * 1000),
                         // O, H, L, C
-                        y: [quote.open[index], quote.high[index], quote.low[index], quote.close[index]].map(round)
+                        y: [data.open[index], data.high[index], data.low[index], data.close[index]].map(round)
                     }
                 })
                 setSeries([{
@@ -89,13 +95,34 @@ export default function ChartElement() {
 
     const direction = useMemo(() => prevPrice < price ? "./img/upArrow.png" : prevPrice > price ? "./img/downArrow.png" : ' ', [prevPrice, price]);
 
-    return (
-        <div className={s.chart}>
-            <p>  ${price}
-                <img src={direction} className={s.img} alt="stock arrow" /> </p>
-            <p>  {priceTime && priceTime.toLocaleTimeString()} </p>
+    function Active() {
+        setActive(isActive => !isActive)
+    }
 
-            <Chart options={chart.options} series={series} type="candlestick" width={500} height={320} />
+    return (
+
+
+        <div className={s.root}>
+            <p>{props.title}</p>
+            <div className={s.buttons}>
+                <div className={s.buttonsBuySell}>
+                    <button className={s.button}>BUY 0.09974</button>
+                    <button className={s.button}>SELL 0.90074</button>
+                </div>
+                <div>
+                    <button onClick={Active} className={s.button} >hide chart</button>
+                </div>
+            </div>
+            <div className={`${s.chart} ${isActive ? `${s.hide}` : `${s.show}`}`}>
+                <div className={s.chart}>
+                    <p>  ${price}
+                        <img src={direction} className={s.img} alt="stock arrow" /> </p>
+                    <p>  {priceTime && priceTime.toLocaleTimeString()} </p>
+
+                    <Chart options={chart.options} series={series} type="candlestick" width={500} height={320} />
+                </div>
+            </div>
+
         </div>
     )
 }

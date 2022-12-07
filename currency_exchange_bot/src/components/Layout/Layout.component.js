@@ -1,8 +1,9 @@
 import React from "react";
 import s from "./Layout.module.css";
-import CurrencyBlock from './components/CurrencyBlock/CurrencyBlock.component';
+import ChartBlock from "../ChartBlock/ChartBlock.component";
 import {Route, Routes} from "react-router-dom";
 import {Link} from "react-router-dom";
+import stocks from "../../data";
 
 export default function Layout() {
 
@@ -12,11 +13,11 @@ export default function Layout() {
             <div className={s.header}>
                 <p >CHOOSE THE COURSE</p>
                 <div className={s.buttons}>
-                    <Link to= "/EURUSD">
-                        <button className={s.button}>EURUSD</button>
+                    <Link to= {`/${stocks.sony.title}` }>
+                        <button className={s.button}>{stocks.sony.title}</button>
                     </Link>
-                    <Link to= "/GOLD">
-                        <button className={s.button}>GOLD</button>
+                    <Link to= {`/${stocks.wa.title}` }>
+                        <button className={s.button}>{stocks.wa.title}</button>
                     </Link>
                     <Link to= "/SILVER">
                         <button className={s.button}>SILVER</button>
@@ -28,17 +29,17 @@ export default function Layout() {
             </div>
             <div className={s.body}>
                 <Routes>
-                    <Route path="/EURUSD" 
-                    element={<CurrencyBlock title="EURUSD"/>}                      
+                    <Route path={`/${stocks.sony.title}` }
+                    element={<ChartBlock title={stocks.sony.title} url={stocks.sony.url}/>}                      
                     />
-                    <Route path="/GOLD" 
-                    element={<CurrencyBlock title="GOLD" />}                      
+                    <Route path={`/${stocks.wa.title}` } 
+                    element={<ChartBlock title={stocks.wa.title} url={stocks.wa.url}/>}                      
                     />
                     <Route path="/SILVER" 
-                    element={<CurrencyBlock title="SILVER" />}                      
+                    element={<ChartBlock title="SILVER" />}                      
                     />
                     <Route path="/OIL" 
-                    element={<CurrencyBlock title="OIL" />}                      
+                    element={<ChartBlock title="OIL" />}                      
                     />
                 </Routes>
             </div>
