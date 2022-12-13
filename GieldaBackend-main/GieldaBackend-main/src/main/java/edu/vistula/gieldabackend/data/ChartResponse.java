@@ -15,7 +15,5 @@ public class ChartResponse {
     List<Float> high;
     List<Float> low;
     List<Float> close;
-    List<Float> adjClose;
-    List<Float> volume;
 
 }
