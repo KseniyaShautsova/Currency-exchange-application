@@ -8,6 +8,10 @@
 
 }
 
+.text{
+    font-size: 2.5vh;
+}
+
 .buttons{
     display: flex;
     flex-direction: row;
@@ -42,44 +46,6 @@
     flex-direction: row;
 }
 
-
-.container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    margin-top: 4%;
-
-}
-
-.buttons{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content:space-around;
-    margin: 2% 0;
-    width: 100vw;
-    text-align: center;
-}
-
-.button{
-    margin: 0 2%;
-    padding: 6% 1%;
-    width: 8rem;
-    color: #fff;
-    background-color: #0582CA;
-    font-weight: 00;
-    border: 1px solid #003554 ;
-    border-radius: 3px;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
-
-.buttonsBuySell{
-    display: flex;
-    flex-direction: row;
-}
-
 .chart{
     background-color: #fff;
     width: fit-content;
@@ -100,8 +66,7 @@
 
 .chart{
     background-color: #fff;
-    width: fit-content;
-    height: fit-content;
+    width: 100%;
     margin-top: 1vh;
     padding: 4vh 8vw;
     color: black;
@@ -112,8 +77,9 @@
     justify-content: center;
 }
 
-.img{
-    height: 1vh;
+.arrow{
+    height: 2.5vh;
+    padding: 2%;
 }
 
 .hide{

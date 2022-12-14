@@ -3,21 +3,21 @@ import s from "./Layout.module.css";
 import ChartBlock from "../ChartBlock/ChartBlock.component";
 import {Route, Routes} from "react-router-dom";
 import {Link} from "react-router-dom";
-import stocks from "../../data";
+import { rerender } from "../../data";
 
-export default function Layout() {
+export default function Layout(props) {
 
     
-    return (
+    return ( 
         <div className={s.root}>
             <div className={s.header}>
-                <p >CHOOSE THE COURSE</p>
+                <p className={s.text}>CHOOSE THE COURSE</p>
                 <div className={s.buttons}>
-                    <Link to= {`/${stocks.sony.title}` }>
-                        <button className={s.button}>{stocks.sony.title}</button>
+                    <Link to= {`/${props.stocksData.sony.title}` }>
+                        <button className={s.button} onClick={rerender}>{props.stocksData.sony.title}</button>
                     </Link>
-                    <Link to= {`/${stocks.wa.title}` }>
-                        <button className={s.button}>{stocks.wa.title}</button>
+                    <Link to= {`/${props.stocksData.wa.title}` }>
+                        <button className={s.button} onClick={rerender}>{props.stocksData.wa.title}</button>
                     </Link>
                     <Link to= "/SILVER">
                         <button className={s.button}>SILVER</button>
@@ -29,11 +29,11 @@ export default function Layout() {
             </div>
             <div className={s.body}>
                 <Routes>
-                    <Route path={`/${stocks.sony.title}` }
-                    element={<ChartBlock title={stocks.sony.title} url={stocks.sony.url}/>}                      
+                    <Route path={`/${props.stocksData.sony.title}` }
+                    element={<ChartBlock title={props.stocksData.sony.title} url={props.stocksData.sony.url}/>}                      
                     />
-                    <Route path={`/${stocks.wa.title}` } 
-                    element={<ChartBlock title={stocks.wa.title} url={stocks.wa.url}/>}                      
+                    <Route path={`/${props.stocksData.wa.title}` } 
+                    element={<ChartBlock title={props.stocksData.wa.title} url={props.stocksData.wa.url}/>}                      
                     />
                     <Route path="/SILVER" 
                     element={<ChartBlock title="SILVER" />}                      

@@ -3,11 +3,11 @@ import Layout from './components/Layout/Layout.component';
 
 
 
-function App() {
+function App(props) {
 
   return (
     <div >
-      <Layout />
+      <Layout stocksData={props.stocksData}/>
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import rerenderEntireTree from "./render";
+
 const stocks = {
     sony: {
         url: "sony",
@@ -8,5 +10,11 @@ const stocks = {
         title: "WA",
     }
 }
+
+
+export const rerender = ()=>{
+    rerenderEntireTree(stocks)
+}
+
 
 export default stocks;

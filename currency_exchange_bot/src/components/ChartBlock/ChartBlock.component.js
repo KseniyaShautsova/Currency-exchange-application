@@ -19,7 +19,7 @@ export default function ChartBlock(props) {
     const stocksUrl = `http://localhost:8080/csv/${props.url}`;
 
 
-
+ 
     const chart = {
         options: {
             chart: {
@@ -27,7 +27,7 @@ export default function ChartBlock(props) {
                 height: 350
             },
             title: {
-                text: 'CandleStick Chart',
+                text: 'Chart',
                 align: 'left'
             },
             xaxis: {
@@ -73,7 +73,7 @@ export default function ChartBlock(props) {
                     return {
                         x: new Date(timestamp * 1000),
                         // O, H, L, C
-                        y: [data.open[index], data.high[index], data.low[index], data.close[index]].map(round)
+                        y: [data.open[index], data.high[index], data.low[index]].map(round)
                     }
                 })
                 setSeries([{
@@ -103,7 +103,7 @@ export default function ChartBlock(props) {
 
 
         <div className={s.root}>
-            <p>{props.title}</p>
+            <p className={s.text}>{props.title}</p>
             <div className={s.buttons}>
                 <div className={s.buttonsBuySell}>
                     <button className={s.button}>BUY 0.09974</button>
@@ -116,7 +116,7 @@ export default function ChartBlock(props) {
             <div className={`${s.chart} ${isActive ? `${s.hide}` : `${s.show}`}`}>
                 <div className={s.chart}>
                     <p>  ${price}
-                        <img src={direction} className={s.img} alt="stock arrow" /> </p>
+                        <img src={direction} className={s.arrow} alt="stock arrow" /> </p>
                     <p>  {priceTime && priceTime.toLocaleTimeString()} </p>
 
                     <Chart options={chart.options} series={series} type="candlestick" width={500} height={320} />
