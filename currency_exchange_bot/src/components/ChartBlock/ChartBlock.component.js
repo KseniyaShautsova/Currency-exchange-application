@@ -73,7 +73,7 @@ export default function ChartBlock(props) {
                     return {
                         x: new Date(timestamp * 1000),
                         // O, H, L, C
-                        y: [data.open[index], data.high[index], data.low[index]].map(round)
+                        y: [data.open[index], data.high[index], data.low[index], data.close[index]].map(round)
                     }
                 })
                 setSeries([{
@@ -103,6 +103,7 @@ export default function ChartBlock(props) {
 
 
         <div className={s.root}>
+            {}
             <p className={s.text}>{props.title}</p>
             <div className={s.buttons}>
                 <div className={s.buttonsBuySell}>
